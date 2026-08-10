@@ -28,14 +28,12 @@ export const reviews: Review[] = [
       "Phil built our custom kitchen cabinetry from scratch. The joinery is exceptional, the finish is quiet and refined, and every detail feels intentional. We knew from the first conversation that we were working with a true craftsman.",
     placeholder: true,
   },
-  // PLACEHOLDER — replace with a real review
   {
-    id: "placeholder-boise",
-    name: "James & Laura T.",
+    id: "maire-o-boise",
+    name: "Maire O.",
     location: "Boise, ID",
     quote:
-      "Our built-ins transformed the library. Phil listened carefully, drew thoughtfully, and delivered work that looks as if it has always belonged to the house. Fair, meticulous, and a pleasure to have on the project.",
-    placeholder: true,
+      "Phil is one of the best out there! He has worked on a number of different projects for us from bathroom remodel to laying new subfloor and hardwood floors. His work is excellent! And he was able to help us come up with some great solutions for some of the conundrums our house presented to us. He is prompt, cheerful, and a great communicator. We are so, so pleased with the beautiful work he has done for us! We love working with Phil and don't want anyone else!",
   },
   // PLACEHOLDER — replace with a real review
   {
