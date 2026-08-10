@@ -5,8 +5,10 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, Loader2, X } from "lucide-react";
+import { formatPhoneUS } from "@/lib/phone";
 import {
   inquiryFormSchema,
+  type InquiryFormParsed,
   type InquiryFormValues,
 } from "@/lib/validations";
 import { useInquiry } from "@/components/InquiryProvider";
@@ -29,9 +31,12 @@ export function ContactModal() {
     register,
     handleSubmit,
     reset,
+    setValue,
+    watch,
     formState: { errors, isSubmitting },
-  } = useForm<InquiryFormValues>({
+  } = useForm<InquiryFormValues, unknown, InquiryFormParsed>({
     resolver: zodResolver(inquiryFormSchema),
+    mode: "onBlur",
     defaultValues: {
       name: "",
       email: "",
@@ -39,6 +44,9 @@ export function ContactModal() {
       message: "",
     },
   });
+
+  const phoneField = register("phone");
+  const phoneValue = watch("phone");
 
   useEffect(() => {
     if (!isOpen) return;
@@ -79,7 +87,7 @@ export function ContactModal() {
     };
   }, []);
 
-  const onSubmit = async (data: InquiryFormValues) => {
+  const onSubmit = async (data: InquiryFormParsed) => {
     setStatus("idle");
     setServerError(null);
 
@@ -250,9 +258,27 @@ export function ContactModal() {
                     <input
                       id="inquiry-phone"
                       type="tel"
+                      inputMode="numeric"
                       autoComplete="tel"
+                      placeholder="(208) 555-1234"
+                      maxLength={14}
                       className="field-input"
-                      {...register("phone")}
+                      name={phoneField.name}
+                      ref={phoneField.ref}
+                      value={phoneValue ?? ""}
+                      onChange={(e) => {
+                        setValue("phone", formatPhoneUS(e.target.value), {
+                          shouldValidate: errors.phone != null,
+                          shouldDirty: true,
+                        });
+                      }}
+                      onBlur={(e) => {
+                        setValue("phone", formatPhoneUS(e.target.value), {
+                          shouldValidate: true,
+                          shouldDirty: true,
+                        });
+                        phoneField.onBlur(e);
+                      }}
                       aria-invalid={errors.phone ? true : undefined}
                       aria-describedby={
                         errors.phone ? "inquiry-phone-error" : undefined

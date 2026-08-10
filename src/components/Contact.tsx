@@ -4,8 +4,10 @@ import { useState, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, Loader2 } from "lucide-react";
+import { formatPhoneUS } from "@/lib/phone";
 import {
   contactFormSchema,
+  type ContactFormParsed,
   type ContactFormValues,
 } from "@/lib/validations";
 import { FadeIn } from "@/components/FadeIn";
@@ -21,9 +23,12 @@ export function Contact() {
     register,
     handleSubmit,
     reset,
+    setValue,
+    watch,
     formState: { errors, isSubmitting },
-  } = useForm<ContactFormValues>({
+  } = useForm<ContactFormValues, unknown, ContactFormParsed>({
     resolver: zodResolver(contactFormSchema),
+    mode: "onBlur",
     defaultValues: {
       name: "",
       email: "",
@@ -34,7 +39,10 @@ export function Contact() {
     },
   });
 
-  const onSubmit = async (data: ContactFormValues) => {
+  const phoneField = register("phone");
+  const phoneValue = watch("phone");
+
+  const onSubmit = async (data: ContactFormParsed) => {
     setStatus("idle");
     setServerError(null);
 
@@ -159,9 +167,27 @@ export function Contact() {
                   <input
                     id="phone"
                     type="tel"
+                    inputMode="numeric"
                     autoComplete="tel"
+                    placeholder="(208) 555-1234"
+                    maxLength={14}
                     className="field-input"
-                    {...register("phone")}
+                    name={phoneField.name}
+                    ref={phoneField.ref}
+                    value={phoneValue ?? ""}
+                    onChange={(e) => {
+                      setValue("phone", formatPhoneUS(e.target.value), {
+                        shouldValidate: errors.phone != null,
+                        shouldDirty: true,
+                      });
+                    }}
+                    onBlur={(e) => {
+                      setValue("phone", formatPhoneUS(e.target.value), {
+                        shouldValidate: true,
+                        shouldDirty: true,
+                      });
+                      phoneField.onBlur(e);
+                    }}
                     aria-invalid={errors.phone ? true : undefined}
                     aria-describedby={
                       errors.phone ? "phone-error" : undefined
