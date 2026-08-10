@@ -22,12 +22,29 @@ export function Footer() {
           <p className="text-xs tracking-[0.04em] text-charcoal/40">
             © {year} MITERBOX
           </p>
-          <Link
-            href="/privacy"
-            className="mt-0.5 text-xs tracking-[0.04em] text-charcoal/35 transition-colors hover:text-charcoal/60"
+          <nav
+            aria-label="Legal"
+            className="mt-0.5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 sm:justify-end"
           >
-            Privacy Policy
-          </Link>
+            <Link
+              href="/privacy"
+              className="text-xs tracking-[0.04em] text-charcoal/35 transition-colors hover:text-charcoal/60"
+            >
+              Privacy Policy
+            </Link>
+            <span
+              aria-hidden="true"
+              className="text-xs text-charcoal/20"
+            >
+              ·
+            </span>
+            <Link
+              href="/terms"
+              className="text-xs tracking-[0.04em] text-charcoal/35 transition-colors hover:text-charcoal/60"
+            >
+              Terms of Service
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>
