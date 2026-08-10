@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Playfair_Display } from "next/font/google";
+import Script from "next/script";
+import { GA_ADS_ID } from "@/lib/gtag";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -77,6 +79,18 @@ export default function RootLayout({
         className={`${geistSans.variable} ${playfair.variable} min-h-screen bg-ivory font-sans text-charcoal antialiased`}
       >
         {children}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ADS_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads-gtag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ADS_ID}');
+          `}
+        </Script>
       </body>
     </html>
   );

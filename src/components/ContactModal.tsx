@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, Loader2, X } from "lucide-react";
+import { trackAdsConversion } from "@/lib/gtag";
 import { formatPhoneUS } from "@/lib/phone";
 import {
   inquiryFormSchema,
@@ -106,6 +107,7 @@ export function ContactModal() {
         throw new Error(payload?.error ?? "Unable to send message");
       }
 
+      trackAdsConversion();
       setStatus("success");
       reset();
 
