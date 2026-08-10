@@ -39,11 +39,7 @@ export function Contact() {
     setServerError(null);
 
     try {
-      /**
-       * Same /api/contact route as the floating modal.
-       * Delivers email (Resend) + SMS (Twilio) when env vars are set —
-       * see `.env.example` for RESEND_* and TWILIO_* keys.
-       */
+      // Same /api/contact route as the floating modal → Zapier webhook.
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -71,9 +67,9 @@ export function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="scroll-mt-24 border-t border-charcoal/8 bg-[#F3EFE9]/60 px-5 py-24 sm:px-8 sm:py-32"
+      className="scroll-mt-24 border-t border-charcoal/8 bg-[#F3EFE9]/60 px-5 py-16 pb-20 sm:px-8 sm:py-24"
     >
-      <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-12 lg:gap-16">
+      <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-12 lg:gap-12">
         <FadeIn className="lg:col-span-5">
           <SectionHeading
             id="contact-heading"
@@ -81,7 +77,7 @@ export function Contact() {
             title="Begin a conversation"
             description="I accept a very limited number of projects each year. Tell me about your project."
           />
-          <p className="mt-8 text-sm leading-relaxed text-charcoal/60">
+          <p className="type-prose mt-5 text-sm text-charcoal/60 sm:mt-6">
             Based in Nampa, Idaho
             <span className="mx-2 text-walnut">•</span>
             Serving Ada &amp; Canyon Counties
@@ -96,10 +92,12 @@ export function Contact() {
             >
               <CheckCircle2 className="text-walnut" size={28} strokeWidth={1.5} />
               <div>
-                <p className="font-serif text-2xl text-charcoal">Message received</p>
-                <p className="mt-2 text-charcoal/65">
-                  Thank you. I will review your note and respond if the project
-                  looks like a fit.
+                <p className="font-serif text-2xl leading-snug tracking-tight text-charcoal">
+                  Thank you — message received
+                </p>
+                <p className="type-prose mt-2 text-charcoal/65">
+                  I appreciate you reaching out. I&apos;ll review your note
+                  carefully and follow up if the project looks like a good fit.
                 </p>
               </div>
               <button
@@ -113,10 +111,10 @@ export function Contact() {
           ) : (
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="space-y-6"
+              className="contact-form"
               noValidate
             >
-              <div className="grid gap-6 sm:grid-cols-2">
+              <div className="contact-form__row">
                 <Field
                   label="Name"
                   error={errors.name?.message}
@@ -128,6 +126,10 @@ export function Contact() {
                     autoComplete="name"
                     className="field-input"
                     {...register("name")}
+                    aria-invalid={errors.name ? true : undefined}
+                    aria-describedby={
+                      errors.name ? "name-error" : undefined
+                    }
                   />
                 </Field>
 
@@ -142,6 +144,10 @@ export function Contact() {
                     autoComplete="email"
                     className="field-input"
                     {...register("email")}
+                    aria-invalid={errors.email ? true : undefined}
+                    aria-describedby={
+                      errors.email ? "email-error" : undefined
+                    }
                   />
                 </Field>
 
@@ -156,6 +162,10 @@ export function Contact() {
                     autoComplete="tel"
                     className="field-input"
                     {...register("phone")}
+                    aria-invalid={errors.phone ? true : undefined}
+                    aria-describedby={
+                      errors.phone ? "phone-error" : undefined
+                    }
                   />
                 </Field>
 
@@ -169,6 +179,10 @@ export function Contact() {
                     className="field-input field-select"
                     defaultValue=""
                     {...register("projectType")}
+                    aria-invalid={errors.projectType ? true : undefined}
+                    aria-describedby={
+                      errors.projectType ? "projectType-error" : undefined
+                    }
                   >
                     <option value="" disabled>
                       Select…
@@ -194,6 +208,10 @@ export function Contact() {
                   className="field-input"
                   placeholder="e.g. Eagle"
                   {...register("location")}
+                  aria-invalid={errors.location ? true : undefined}
+                  aria-describedby={
+                    errors.location ? "location-error" : undefined
+                  }
                 />
               </Field>
 
@@ -205,32 +223,38 @@ export function Contact() {
                 <textarea
                   id="description"
                   rows={5}
-                  className="field-input resize-y min-h-[8rem]"
+                  className="field-input min-h-[8rem] resize-y"
                   placeholder="Timeline, materials, and anything that matters about the space…"
                   {...register("description")}
+                  aria-invalid={errors.description ? true : undefined}
+                  aria-describedby={
+                    errors.description ? "description-error" : undefined
+                  }
                 />
               </Field>
 
               {status === "error" && serverError ? (
-                <p role="alert" className="text-sm text-red-800">
+                <p role="alert" className="field-error">
                   {serverError}
                 </p>
               ) : null}
 
-              <button
-                type="submit"
-                className="btn-primary w-full sm:w-auto"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <span className="inline-flex items-center gap-2">
-                    <Loader2 className="animate-spin" size={16} />
-                    Sending…
-                  </span>
-                ) : (
-                  "Submit inquiry"
-                )}
-              </button>
+              <div className="contact-form__actions">
+                <button
+                  type="submit"
+                  className="btn-primary contact-form__submit w-full sm:w-auto"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <span className="inline-flex items-center gap-2">
+                      <Loader2 className="animate-spin" size={16} />
+                      Sending…
+                    </span>
+                  ) : (
+                    "Submit inquiry"
+                  )}
+                </button>
+              </div>
             </form>
           )}
         </FadeIn>
@@ -251,16 +275,13 @@ function Field({
   children: ReactNode;
 }) {
   return (
-    <div>
-      <label
-        htmlFor={htmlFor}
-        className="mb-2 block text-[0.7rem] font-medium uppercase tracking-[0.16em] text-charcoal/70"
-      >
+    <div className="contact-field">
+      <label htmlFor={htmlFor} className="type-label text-charcoal/70">
         {label}
       </label>
       {children}
       {error ? (
-        <p className="mt-1.5 text-sm text-red-800" role="alert">
+        <p id={`${htmlFor}-error`} className="field-error" role="alert">
           {error}
         </p>
       ) : null}

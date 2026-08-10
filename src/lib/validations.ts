@@ -64,14 +64,15 @@ export const contactPayloadSchema = z
 
 export type ContactPayload = z.infer<typeof contactPayloadSchema>;
 
+/** Shape posted to the Zapier webhook (exact field names). */
 export function normalizeContactPayload(data: ContactPayload) {
   const message = (data.message ?? data.description ?? "").trim();
   return {
     name: data.name.trim(),
     email: data.email.trim(),
-    phone: data.phone?.trim() || undefined,
+    phone: data.phone?.trim() || "",
+    projectType: data.projectType ?? "",
+    location: data.location?.trim() || "",
     message,
-    projectType: data.projectType,
-    location: data.location?.trim() || undefined,
   };
 }

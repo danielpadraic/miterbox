@@ -11,7 +11,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-5 pb-20 pt-28 sm:px-8"
+      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden px-5 pb-12 pt-20 sm:px-8 sm:pb-16 sm:pt-24"
     >
       {/* Soft atmosphere — not a flat wash */}
       <div
@@ -25,10 +25,10 @@ export function Hero() {
 
       <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center text-center">
         <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-10 sm:mb-12"
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-6 sm:mb-10"
         >
           {/*
             Hero logo PNG: monogram + MITERBOX stay black; tagline + rules should be bronze (#A67C52).
@@ -39,37 +39,37 @@ export function Hero() {
         </motion.div>
 
         <motion.h1
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-3xl font-serif text-[2.05rem] leading-[1.15] tracking-tight text-charcoal sm:text-5xl md:text-[3.35rem]"
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-3xl font-serif text-[1.95rem] leading-[1.15] tracking-tight text-charcoal sm:text-5xl md:text-[3.35rem]"
         >
           Handcrafted for the few who notice the difference.
         </motion.h1>
 
         <motion.p
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-6 max-w-xl text-base leading-relaxed text-charcoal/65 sm:text-lg"
+          transition={{ duration: 0.7, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          className="type-prose mt-5 max-w-xl text-[0.95rem] text-charcoal/65 sm:mt-6 sm:text-lg"
         >
           Since 1994 at the bench. One craftsman. One or two projects a
           month — designed and built by hand in Nampa, Idaho.
         </motion.p>
 
         <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-10 flex flex-col items-center gap-4 sm:mt-12 sm:flex-row sm:gap-5"
+          transition={{ duration: 0.7, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-7 flex w-full max-w-xs flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:items-center sm:justify-center sm:gap-5"
         >
-          <a href="#work" className="btn-primary">
+          <a href="#work" className="btn-primary w-full sm:w-auto">
             View Selected Work
           </a>
           <button
             type="button"
             onClick={openInquiry}
-            className="btn-secondary"
+            className="btn-secondary w-full sm:w-auto"
           >
             Start a Conversation
           </button>

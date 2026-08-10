@@ -30,17 +30,69 @@ html {
   html {
     scroll-behavior: auto;
   }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "kern" 1, "liga" 1;
 }
 
 ::selection {
   background: color-mix(in srgb, var(--walnut) 28%, transparent);
   color: var(--charcoal);
+}
+
+/* ── Typography roles ─────────────────────────────────────── */
+/* Serif (Playfair) = headlines / display; sans (Geist) = body / UI */
+/* In @layer utilities so Tailwind size/color/tracking overrides compose. */
+
+@layer utilities {
+  .type-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--walnut);
+  }
+
+  /* Form labels, nav-adjacent UI labels */
+  .type-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* Compact meta tags (gallery category, location, counters) */
+  .type-meta {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* Long body / descriptions — modest lh + refined tracking */
+  .type-prose {
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  /* Serif quotes / review text */
+  .type-quote {
+    line-height: 1.7;
+    letter-spacing: 0.012em;
+  }
 }
 
 /* Subtle paper / grain texture */
@@ -54,7 +106,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.85rem;
+  min-height: 2.75rem;
   padding: 0.75rem 1.6rem;
   background: var(--charcoal);
   color: var(--ivory);
@@ -63,13 +115,18 @@ body {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   transition:
-    background-color 0.35s ease,
-    color 0.35s ease,
-    transform 0.35s ease;
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
 }
 
 .btn-primary:hover {
   background: color-mix(in srgb, var(--charcoal) 88%, var(--walnut));
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
 }
 
 .btn-primary:focus-visible {
@@ -80,13 +137,14 @@ body {
 .btn-primary:disabled {
   opacity: 0.65;
   cursor: not-allowed;
+  transform: none;
 }
 
 .btn-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.85rem;
+  min-height: 2.75rem;
   padding: 0.75rem 1.6rem;
   border: 1px solid color-mix(in srgb, var(--charcoal) 28%, transparent);
   color: var(--charcoal);
@@ -96,13 +154,19 @@ body {
   text-transform: uppercase;
   background: transparent;
   transition:
-    border-color 0.35s ease,
-    background-color 0.35s ease;
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    transform 0.3s ease;
 }
 
 .btn-secondary:hover {
   border-color: var(--charcoal);
   background: color-mix(in srgb, var(--charcoal) 4%, transparent);
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
 }
 
 .btn-secondary:focus-visible {
@@ -110,17 +174,91 @@ body {
   outline-offset: 3px;
 }
 
+/* Soft interactive surfaces (gallery tiles, process steps) */
+.hover-lift {
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease,
+    border-color 0.35s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift:hover {
+    transform: translateY(-3px);
+  }
+
+  .hover-lift:active {
+    transform: translateY(-1px);
+  }
+}
+
+/* Contact / inquiry form rhythm — scoped so site-wide spacing stays untouched */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.contact-form__row {
+  display: grid;
+  gap: 1.35rem;
+}
+
+@media (min-width: 640px) {
+  .contact-form {
+    gap: 1.75rem;
+  }
+
+  .contact-form__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem;
+  }
+}
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact-field__label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.contact-field__hint {
+  font-size: 0.7rem;
+  color: color-mix(in srgb, var(--charcoal) 45%, transparent);
+}
+
+.field-error {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: color-mix(in srgb, #7a3e32 88%, var(--charcoal));
+}
+
 .field-input {
   width: 100%;
+  min-height: 2.75rem;
   border: 1px solid color-mix(in srgb, var(--charcoal) 14%, transparent);
   background-color: var(--ivory);
   color: var(--charcoal);
-  padding: 0.85rem 1rem;
-  font-size: 0.95rem;
+  padding: 0.9rem 1.05rem;
+  font-size: 1rem; /* ≥16px avoids iOS input zoom */
   line-height: 1.45;
+  border-radius: 0;
   transition:
     border-color 0.25s ease,
     box-shadow 0.25s ease;
+}
+
+@media (min-width: 640px) {
+  .field-input {
+    font-size: 0.95rem;
+  }
 }
 
 .field-input::placeholder {
@@ -131,22 +269,47 @@ body {
   border-color: color-mix(in srgb, var(--charcoal) 28%, transparent);
 }
 
-.field-input:focus {
+.field-input:focus,
+.field-input:focus-visible {
   outline: none;
   border-color: var(--walnut);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--walnut) 18%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--walnut) 20%, transparent);
 }
 
-/* Native select — single chevron, no tiling */
+.field-input[aria-invalid="true"] {
+  border-color: color-mix(in srgb, #8b4a3a 50%, var(--charcoal));
+}
+
+.field-input[aria-invalid="true"]:focus,
+.field-input[aria-invalid="true"]:focus-visible {
+  border-color: color-mix(in srgb, #8b4a3a 65%, var(--charcoal));
+  box-shadow: 0 0 0 3px color-mix(in srgb, #8b4a3a 14%, transparent);
+}
+
+/* Native select — solid field fill + single chevron (no tile / no native arrow) */
 .field-select {
   appearance: none;
   -webkit-appearance: none;
-  background-color: var(--ivory);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%231C1C1A' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 1rem 1rem;
-  padding-right: 2.5rem;
+  -moz-appearance: none;
+  cursor: pointer;
+  /* Layered shorthand keeps ivory fill + one chevron; avoids tiled artifacts */
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%231C1C1A' stroke-opacity='0.7' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+      no-repeat right 1rem center / 0.9rem 0.9rem,
+    var(--ivory);
+  padding-right: 2.75rem;
+}
+
+.field-select::-ms-expand {
+  display: none;
+}
+
+.contact-form__actions {
+  padding-top: 0.35rem;
+}
+
+.contact-form__submit {
+  min-width: 12.5rem;
 }
 
 /* ── Reviews carousel ─────────────────────────────────────── */
@@ -189,21 +352,24 @@ body {
     0 12px 28px -18px rgba(28, 28, 26, 0.24),
     0 3px 8px -4px rgba(28, 28, 26, 0.08);
   transition:
-    box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.55s ease;
+    box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.6s ease;
 }
 
 .review-card--active {
+  border-color: color-mix(in srgb, var(--charcoal) 12%, transparent);
   box-shadow:
-    0 1px 0 color-mix(in srgb, white 75%, transparent) inset,
-    0 22px 48px -20px rgba(28, 28, 26, 0.28),
-    0 10px 20px -12px rgba(28, 28, 26, 0.12);
+    0 1px 0 color-mix(in srgb, white 80%, transparent) inset,
+    0 28px 56px -18px rgba(28, 28, 26, 0.34),
+    0 14px 28px -12px rgba(28, 28, 26, 0.14),
+    0 4px 10px -4px rgba(28, 28, 26, 0.08);
 }
 
 .review-card--side {
+  border-color: color-mix(in srgb, var(--charcoal) 6%, transparent);
   box-shadow:
-    0 1px 0 color-mix(in srgb, white 55%, transparent) inset,
-    0 8px 20px -16px rgba(28, 28, 26, 0.18);
+    0 1px 0 color-mix(in srgb, white 45%, transparent) inset,
+    0 6px 16px -14px rgba(28, 28, 26, 0.14);
 }
 
 .review-card--placeholder {
@@ -213,25 +379,51 @@ body {
 
 .review-nav-btn {
   display: inline-flex;
-  height: 2.25rem;
-  width: 2.25rem;
+  height: 2.75rem;
+  width: 2.75rem;
   align-items: center;
   justify-content: center;
   border: 1px solid color-mix(in srgb, var(--charcoal) 14%, transparent);
   background: color-mix(in srgb, var(--ivory) 88%, white);
   color: var(--charcoal);
   transition:
-    border-color 0.3s ease,
-    background-color 0.3s ease,
-    color 0.3s ease;
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+@media (min-width: 640px) {
+  .review-nav-btn {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
 }
 
 .review-nav-btn:hover {
   border-color: var(--walnut);
   color: var(--walnut);
+  background: color-mix(in srgb, var(--ivory) 96%, white);
+  transform: translateY(-1px);
+}
+
+.review-nav-btn:active {
+  transform: translateY(0);
 }
 
 .review-nav-btn:focus-visible {
   outline: 2px solid var(--walnut);
   outline-offset: 3px;
+}
+
+/* Nav links — soft color shift */
+.nav-link {
+  transition:
+    color 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.nav-link:hover {
+  color: var(--charcoal);
+  opacity: 1;
 }

@@ -20,18 +20,16 @@ export function SectionHeading({
       }
     >
       {eyebrow ? (
-        <p className="mb-4 text-xs font-medium uppercase tracking-[0.22em] text-walnut">
-          {eyebrow}
-        </p>
+        <p className="type-eyebrow mb-2.5 sm:mb-3">{eyebrow}</p>
       ) : null}
       <h2
         id={id}
-        className="font-serif text-3xl leading-tight tracking-tight text-charcoal sm:text-4xl md:text-[2.75rem]"
+        className="font-serif text-[1.75rem] leading-[1.15] tracking-tight text-charcoal sm:text-4xl md:text-[2.75rem]"
       >
         {title}
       </h2>
       {description ? (
-        <p className="mt-5 text-base leading-relaxed text-charcoal/70 sm:text-lg">
+        <p className="type-prose mt-3 text-[0.95rem] text-charcoal/70 sm:mt-4 sm:text-lg">
           {description}
         </p>
       ) : null}

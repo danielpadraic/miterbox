@@ -29,7 +29,7 @@ export function Process() {
     <section
       id="process"
       aria-labelledby="process-heading"
-      className="scroll-mt-24 px-5 py-24 sm:px-8 sm:py-32"
+      className="scroll-mt-24 px-5 py-16 sm:px-8 sm:py-24"
     >
       <div className="mx-auto max-w-6xl">
         <FadeIn>
@@ -41,18 +41,18 @@ export function Process() {
           />
         </FadeIn>
 
-        <ol className="mt-14 grid list-none gap-10 p-0 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <ol className="mt-9 grid list-none gap-7 p-0 sm:mt-12 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4">
           {steps.map((step, index) => (
             <li key={step.number} className="h-full">
               <FadeIn delay={index * 0.08} className="h-full">
-                <div className="h-full border-t border-charcoal/15 pt-6">
-                  <span className="font-serif text-sm tracking-[0.2em] text-walnut">
+                <div className="hover-lift h-full border-t border-charcoal/15 pt-5 hover:border-walnut/45 sm:pt-6">
+                  <span className="font-serif text-sm tracking-[0.22em] text-walnut">
                     {step.number}
                   </span>
-                  <h3 className="mt-4 font-serif text-2xl text-charcoal">
+                  <h3 className="mt-3 font-serif text-[1.35rem] leading-snug tracking-tight text-charcoal sm:mt-4 sm:text-2xl">
                     {step.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-charcoal/65 sm:text-[0.95rem]">
+                  <p className="type-prose mt-2.5 text-sm text-charcoal/65 sm:mt-3 sm:text-[0.95rem]">
                     {step.body}
                   </p>
                 </div>

@@ -7,16 +7,16 @@ export function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="scroll-mt-24 border-y border-charcoal/8 bg-[#F3EFE9]/60 px-5 py-24 sm:px-8 sm:py-32"
+      className="scroll-mt-24 border-y border-charcoal/8 bg-[#F3EFE9]/60 px-5 py-16 sm:px-8 sm:py-24"
     >
-      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-12 lg:gap-16 lg:items-center">
+      <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-12 lg:gap-12 lg:items-center">
         <FadeIn className="lg:col-span-5">
-          <div className="relative aspect-[4/5] overflow-hidden bg-charcoal/5">
+          <div className="group relative aspect-[4/5] overflow-hidden bg-charcoal/5">
             <Image
               src="/gallery/workshop.jpg"
               alt="Phil leveling custom cabinetry on site"
               fill
-              className="object-cover object-top"
+              className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
               sizes="(max-width: 1024px) 100vw, 40vw"
               priority={false}
             />
@@ -30,7 +30,7 @@ export function About() {
             title="Since 1994. One pair of hands."
           />
 
-          <div className="mt-8 space-y-5 text-base leading-relaxed text-charcoal/70 sm:text-lg">
+          <div className="type-prose mt-5 space-y-4 text-[0.95rem] text-charcoal/70 sm:mt-6 sm:space-y-5 sm:text-lg">
             <p>
               MITERBOX began in 1994. For more than three decades, the work has
               been the same: careful joinery, honest materials, and cabinetry

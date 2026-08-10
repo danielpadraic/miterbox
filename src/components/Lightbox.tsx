@@ -107,7 +107,7 @@ export function Lightbox({ project, onClose }: LightboxProps) {
               ref={closeRef}
               type="button"
               onClick={onClose}
-              className="absolute right-3 top-3 z-20 rounded-sm bg-ivory/90 p-2 text-charcoal transition-colors hover:bg-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-walnut"
+              className="absolute right-2 top-2 z-20 inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm bg-ivory/90 text-charcoal transition-colors hover:bg-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-walnut sm:right-3 sm:top-3"
               aria-label="Close"
             >
               <X size={20} strokeWidth={1.5} />
@@ -140,7 +140,7 @@ export function Lightbox({ project, onClose }: LightboxProps) {
                     type="button"
                     onClick={previous}
                     aria-label="Previous photo"
-                    className="absolute left-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-sm bg-ivory/90 text-charcoal transition-colors hover:bg-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-walnut"
+                    className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-sm bg-ivory/90 text-charcoal transition-colors hover:bg-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-walnut sm:left-3"
                   >
                     <ChevronLeft size={20} strokeWidth={1.5} />
                   </button>
@@ -148,12 +148,12 @@ export function Lightbox({ project, onClose }: LightboxProps) {
                     type="button"
                     onClick={next}
                     aria-label="Next photo"
-                    className="absolute right-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-sm bg-ivory/90 text-charcoal transition-colors hover:bg-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-walnut sm:right-14"
+                    className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-sm bg-ivory/90 text-charcoal transition-colors hover:bg-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-walnut sm:right-14"
                   >
                     <ChevronRight size={20} strokeWidth={1.5} />
                   </button>
 
-                  <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-sm bg-charcoal/55 px-2.5 py-1.5 backdrop-blur-sm">
+                  <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 items-center gap-0.5 rounded-sm bg-charcoal/55 px-1.5 py-1 backdrop-blur-sm sm:bottom-3 sm:gap-1 sm:px-2">
                     {gallery.map((src, i) => (
                       <button
                         key={src}
@@ -161,10 +161,16 @@ export function Lightbox({ project, onClose }: LightboxProps) {
                         aria-label={`Show photo ${i + 1}`}
                         aria-current={i === slide}
                         onClick={() => setSlide(i)}
-                        className={`h-1.5 rounded-full transition-all ${
-                          i === slide ? "w-5 bg-ivory" : "w-1.5 bg-ivory/45 hover:bg-ivory/70"
-                        }`}
-                      />
+                        className="inline-flex h-11 w-11 items-center justify-center"
+                      >
+                        <span
+                          className={`block h-1.5 rounded-full transition-all ${
+                            i === slide
+                              ? "w-5 bg-ivory"
+                              : "w-1.5 bg-ivory/45"
+                          }`}
+                        />
+                      </button>
                     ))}
                   </div>
                 </>
@@ -175,18 +181,20 @@ export function Lightbox({ project, onClose }: LightboxProps) {
               <div>
                 <p
                   id={titleId}
-                  className="font-serif text-lg text-charcoal sm:text-xl"
+                  className="font-serif text-lg leading-snug tracking-tight text-charcoal sm:text-xl"
                 >
                   {project.title}
                 </p>
-                <p className="mt-1 text-sm text-charcoal/60">{project.caption}</p>
+                <p className="type-prose mt-1 text-sm text-charcoal/60">
+                  {project.caption}
+                </p>
                 {hasCarousel ? (
-                  <p className="mt-2 text-[0.65rem] uppercase tracking-[0.16em] text-walnut">
+                  <p className="type-meta mt-2 text-walnut">
                     {slide + 1} / {gallery.length}
                   </p>
                 ) : null}
               </div>
-              <span className="shrink-0 text-[0.65rem] uppercase tracking-[0.18em] text-walnut">
+              <span className="type-meta shrink-0 text-walnut">
                 {project.category}
               </span>
             </div>
@@ -200,7 +208,7 @@ export function Lightbox({ project, onClose }: LightboxProps) {
 /** Small badge for gallery tiles that open a multi-photo carousel */
 export function GalleryCarouselHint() {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-sm bg-charcoal/45 px-2 py-1 text-[0.6rem] uppercase tracking-[0.14em] text-ivory backdrop-blur-sm">
+    <span className="type-meta inline-flex items-center gap-1.5 rounded-sm bg-charcoal/45 px-2 py-1 text-[0.6rem] text-ivory backdrop-blur-sm">
       <Images size={11} strokeWidth={1.75} aria-hidden />
       Gallery
     </span>

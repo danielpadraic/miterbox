@@ -147,22 +147,20 @@ export function ContactModal() {
                 : { opacity: 0, y: 16, scale: 0.98 }
             }
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10 flex max-h-[92svh] w-full max-w-lg flex-col overflow-hidden rounded-t-md bg-ivory shadow-2xl sm:rounded-sm"
+            className="relative z-10 flex max-h-[92svh] w-full max-w-lg flex-col overflow-hidden rounded-t-md bg-ivory pb-[env(safe-area-inset-bottom,0px)] shadow-2xl sm:rounded-sm sm:pb-0"
           >
             <div className="flex items-start justify-between gap-4 border-b border-charcoal/8 px-5 py-5 sm:px-7 sm:py-6">
               <div className="pr-2">
-                <p className="mb-2 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-walnut">
-                  Inquiry
-                </p>
+                <p className="type-eyebrow mb-2">Inquiry</p>
                 <h2
                   id={titleId}
-                  className="font-serif text-2xl tracking-tight text-charcoal sm:text-[1.75rem]"
+                  className="font-serif text-2xl leading-snug tracking-tight text-charcoal sm:text-[1.75rem]"
                 >
                   Start a Conversation
                 </h2>
                 <p
                   id={descId}
-                  className="mt-3 text-sm leading-relaxed text-charcoal/65 sm:text-[0.95rem]"
+                  className="type-prose mt-3 text-sm text-charcoal/65 sm:text-[0.95rem]"
                 >
                   Tell Phil a little about your project. He only takes a limited
                   number of commissions each year, but he’d still love to hear
@@ -173,7 +171,7 @@ export function ContactModal() {
                 ref={closeRef}
                 type="button"
                 onClick={closeInquiry}
-                className="shrink-0 rounded-sm p-2 text-charcoal/70 transition-colors hover:bg-charcoal/5 hover:text-charcoal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-walnut"
+                className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-sm text-charcoal/70 transition-colors hover:bg-charcoal/5 hover:text-charcoal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-walnut"
                 aria-label="Close"
               >
                 <X size={20} strokeWidth={1.5} />
@@ -191,18 +189,18 @@ export function ContactModal() {
                     size={28}
                     strokeWidth={1.5}
                   />
-                  <p className="font-serif text-2xl text-charcoal">
-                    Message sent
+                  <p className="font-serif text-2xl leading-snug tracking-tight text-charcoal">
+                    Thank you — message sent
                   </p>
-                  <p className="text-charcoal/65">
-                    Thank you. Phil will review your message and be in touch
-                    soon.
+                  <p className="type-prose text-charcoal/65">
+                    I appreciate you reaching out. Phil will review your note
+                    carefully and be in touch if it looks like a fit.
                   </p>
                 </div>
               ) : (
                 <form
                   onSubmit={handleSubmit(onSubmit)}
-                  className="space-y-5"
+                  className="contact-form"
                   noValidate
                 >
                   <Field
@@ -217,6 +215,10 @@ export function ContactModal() {
                       autoComplete="name"
                       className="field-input"
                       {...register("name")}
+                      aria-invalid={errors.name ? true : undefined}
+                      aria-describedby={
+                        errors.name ? "inquiry-name-error" : undefined
+                      }
                     />
                   </Field>
 
@@ -232,6 +234,10 @@ export function ContactModal() {
                       autoComplete="email"
                       className="field-input"
                       {...register("email")}
+                      aria-invalid={errors.email ? true : undefined}
+                      aria-describedby={
+                        errors.email ? "inquiry-email-error" : undefined
+                      }
                     />
                   </Field>
 
@@ -247,6 +253,10 @@ export function ContactModal() {
                       autoComplete="tel"
                       className="field-input"
                       {...register("phone")}
+                      aria-invalid={errors.phone ? true : undefined}
+                      aria-describedby={
+                        errors.phone ? "inquiry-phone-error" : undefined
+                      }
                     />
                   </Field>
 
@@ -262,29 +272,35 @@ export function ContactModal() {
                       className="field-input min-h-[7.5rem] resize-y"
                       placeholder="A few words about the space, timeline, or materials…"
                       {...register("message")}
+                      aria-invalid={errors.message ? true : undefined}
+                      aria-describedby={
+                        errors.message ? "inquiry-message-error" : undefined
+                      }
                     />
                   </Field>
 
                   {status === "error" && serverError ? (
-                    <p role="alert" className="text-sm text-red-800">
+                    <p role="alert" className="field-error">
                       {serverError}
                     </p>
                   ) : null}
 
-                  <button
-                    type="submit"
-                    className="btn-primary w-full"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <span className="inline-flex items-center gap-2">
-                        <Loader2 className="animate-spin" size={16} />
-                        Sending…
-                      </span>
-                    ) : (
-                      "Send Message"
-                    )}
-                  </button>
+                  <div className="contact-form__actions">
+                    <button
+                      type="submit"
+                      className="btn-primary w-full"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <span className="inline-flex items-center gap-2">
+                          <Loader2 className="animate-spin" size={16} />
+                          Sending…
+                        </span>
+                      ) : (
+                        "Send Message"
+                      )}
+                    </button>
+                  </div>
                 </form>
               )}
             </div>
@@ -311,12 +327,9 @@ function Field({
   children: ReactNode;
 }) {
   return (
-    <div>
-      <div className="mb-2 flex items-baseline justify-between gap-3">
-        <label
-          htmlFor={htmlFor}
-          className="block text-[0.7rem] font-medium uppercase tracking-[0.16em] text-charcoal/70"
-        >
+    <div className="contact-field">
+      <div className="contact-field__label-row">
+        <label htmlFor={htmlFor} className="type-label text-charcoal/70">
           {label}
           {required ? (
             <span className="ml-1 text-walnut" aria-hidden>
@@ -325,12 +338,12 @@ function Field({
           ) : null}
         </label>
         {hint ? (
-          <span className="text-[0.7rem] text-charcoal/45">{hint}</span>
+          <span className="contact-field__hint">{hint}</span>
         ) : null}
       </div>
       {children}
       {error ? (
-        <p className="mt-1.5 text-sm text-red-800" role="alert">
+        <p id={`${htmlFor}-error`} className="field-error" role="alert">
           {error}
         </p>
       ) : null}
