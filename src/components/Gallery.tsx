@@ -28,7 +28,7 @@ export function Gallery() {
             id="work-heading"
             eyebrow="Portfolio"
             title="Selected Work"
-            description="A quiet selection of kitchens, built-ins, and custom pieces — each made by hand for a unique client and their home."
+            description="A selection of kitchens, built-ins, and custom pieces — each made by hand for a unique client and their home."
           />
         </FadeIn>
 

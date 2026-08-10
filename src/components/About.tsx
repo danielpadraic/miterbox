@@ -27,7 +27,7 @@ export function About() {
           <SectionHeading
             id="about-heading"
             eyebrow="The Craftsman"
-            title="Since 1994. One pair of hands."
+            title="Over Three Decades. One pair of hands."
           />
 
           <div className="type-prose mt-5 space-y-4 text-[0.95rem] text-charcoal/70 sm:mt-6 sm:space-y-5 sm:text-lg">

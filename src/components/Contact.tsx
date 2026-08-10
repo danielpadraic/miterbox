@@ -88,7 +88,7 @@ export function Contact() {
           <p className="type-prose mt-5 text-sm text-charcoal/60 sm:mt-6">
             Based in Nampa, Idaho
             <span className="mx-2 text-walnut">•</span>
-            Serving Ada &amp; Canyon Counties
+            Serving the Treasure Valley
           </p>
         </FadeIn>
 
