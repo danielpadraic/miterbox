@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MITERBOX
 
-## Getting Started
+High-end single-page site for MITERBOX — custom cabinetry & artisan carpentry in Nampa, Idaho.
 
-First, run the development server:
+## Stack
+
+- Next.js 15 (App Router) + TypeScript
+- Tailwind CSS
+- Framer Motion
+- Lucide React
+- React Hook Form + Zod
+
+## Requirements
+
+- Node.js 20+
+
+## Getting started
 
 ```bash
+nvm use   # if you use nvm — reads .nvmrc
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Customizing content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| What | Where |
+| --- | --- |
+| Gallery projects | `src/data/projects.ts` |
+| Project photos | `public/gallery/` |
+| Logo | `public/logo.png` |
+| Contact delivery | `src/app/api/contact/route.ts` + `.env.local` |
 
-## Learn More
+### Contact form (email + SMS)
 
-To learn more about Next.js, take a look at the following resources:
+The floating “Start a Conversation” button and the page contact section both post to `/api/contact`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Copy `.env.example` → `.env.local`
+2. Add your **Resend** API key + from-address
+3. Add your **Twilio** SID, auth token, Twilio from-number, and Phil’s phone number (`PHIL_PHONE_NUMBER`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+In development, if keys are missing, submissions are logged to the server console so you can still test the UI.
 
-## Deploy on Vercel
+### Optional project video
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+In `src/data/projects.ts`, set `video: "/gallery/your-clip.mp4"` on any project. The lightbox will play it with the still image as poster.
