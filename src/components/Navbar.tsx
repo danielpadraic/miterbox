@@ -51,12 +51,12 @@ export function Navbar() {
         <ul className="hidden items-center gap-10 md:flex">
           {links.map((link) => (
             <li key={link.href}>
-              <a
+              <Link
                 href={link.href}
                 className="nav-link type-label text-[0.8rem] tracking-[0.18em] text-charcoal/75"
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -94,13 +94,13 @@ export function Navbar() {
                     duration: reduceMotion ? 0 : 0.3,
                   }}
                 >
-                  <a
+                  <Link
                     href={link.href}
                     className="nav-link block py-3 font-serif text-3xl leading-tight tracking-tight text-charcoal/90"
                     onClick={() => setOpen(false)}
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </motion.li>
               ))}
             </ul>
