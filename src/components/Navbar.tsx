@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -43,9 +44,9 @@ export function Navbar() {
         className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:h-[4.5rem] sm:px-8"
         aria-label="Primary"
       >
-        <a href="/" className="relative z-10 block shrink-0" aria-label="MITERBOX home">
+        <Link href="/" className="relative z-10 block shrink-0" aria-label="MITERBOX home">
           <BrandLogo size="nav" priority />
-        </a>
+        </Link>
 
         <ul className="hidden items-center gap-10 md:flex">
           {links.map((link) => (
