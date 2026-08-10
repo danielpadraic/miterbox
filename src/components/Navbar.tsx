@@ -6,10 +6,10 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { BrandLogo } from "@/components/BrandLogo";
 
 const links = [
-  { href: "#work", label: "Work" },
-  { href: "#about", label: "About" },
-  { href: "#process", label: "Process" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#work", label: "Work" },
+  { href: "/#about", label: "About" },
+  { href: "/#process", label: "Process" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Navbar() {
@@ -43,7 +43,7 @@ export function Navbar() {
         className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:h-[4.5rem] sm:px-8"
         aria-label="Primary"
       >
-        <a href="#top" className="relative z-10 block shrink-0" aria-label="MITERBOX home">
+        <a href="/" className="relative z-10 block shrink-0" aria-label="MITERBOX home">
           <BrandLogo size="nav" priority />
         </a>
 

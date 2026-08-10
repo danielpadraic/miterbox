@@ -8,7 +8,7 @@ export function Footer() {
       {/* Extra bottom padding on mobile so the floating CTA doesn’t cover the copyright */}
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-5 sm:flex-row sm:items-end sm:gap-6">
         <a
-          href="#top"
+          href="/"
           aria-label="MITERBOX home"
           className="inline-flex min-h-11 items-center"
         >
@@ -21,6 +21,12 @@ export function Footer() {
           <p className="text-xs tracking-[0.04em] text-charcoal/40">
             © {year} MITERBOX
           </p>
+          <a
+            href="/privacy"
+            className="mt-0.5 text-xs tracking-[0.04em] text-charcoal/35 transition-colors hover:text-charcoal/60"
+          >
+            Privacy Policy
+          </a>
         </div>
       </div>
     </footer>
