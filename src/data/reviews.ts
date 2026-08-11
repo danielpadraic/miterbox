@@ -19,14 +19,12 @@ export const reviews: Review[] = [
     quote:
       "We would recommend Phil to anyone! He completed a bathroom remodel for us and we hired him again for a whole home remodel project after our house flooded. He did excellent work on tile, floors, carpet, drywall, insulation, cabinets, fixtures, painting, trim work, etc... He is fair priced, works hard, communicates well, and is overall pleasant to be around. We're so thankful to have found someone who is talented, honest, fair, and works hard with integrity! We will use Phil for any and all future remodel or carpentry projects.",
   },
-  // PLACEHOLDER — replace with a real review
   {
-    id: "placeholder-eagle",
-    name: "Sarah M.",
-    location: "Eagle, ID",
+    id: "deja-h-boise",
+    name: "Deja H.",
+    location: "Boise, ID",
     quote:
-      "Phil built our custom kitchen cabinetry from scratch. The joinery is exceptional, the finish is quiet and refined, and every detail feels intentional. We knew from the first conversation that we were working with a true craftsman.",
-    placeholder: true,
+      "We are so thankful for Phil! He has done multiple projects at our house in the last year and with each one he is the most detail oriented and gets the job done in a timely manner. His craftsmanship is truly one of a kind and we cannot wait to hire him for any projects we decide to do in the future!",
   },
   {
     id: "maire-o-boise",

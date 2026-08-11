@@ -45,7 +45,7 @@ function ReviewCard({
 }) {
   return (
     <article
-      className={`review-card relative flex h-full w-full flex-col px-5 py-4 sm:px-6 sm:py-5 ${
+      className={`review-card relative flex w-full flex-col px-5 py-4 sm:h-full sm:px-6 sm:py-5 ${
         review.placeholder ? "review-card--placeholder" : ""
       } ${active ? "review-card--active" : "review-card--side"}`}
     >
@@ -175,75 +175,124 @@ export function Reviews() {
         </FadeIn>
 
         <FadeIn delay={0.08} className="mt-10 sm:mt-16">
-          <div className="relative mx-auto max-w-5xl">
-            <div className="reviews-stage relative mx-auto h-[24.5rem] overflow-hidden sm:h-[32rem] md:h-[34rem]">
-              <AnimatePresence initial={false}>
-                {slots.map(({ review: item, offset }) => {
-                  const active = offset === 0;
-                  const peek = offset * PEEK;
+          <div className="mx-auto max-w-5xl">
+            <div className="relative">
+              <div
+                className={
+                  isNarrow
+                    ? "reviews-stage relative mx-auto overflow-visible"
+                    : "reviews-stage relative mx-auto h-[32rem] overflow-hidden md:h-[34rem]"
+                }
+              >
+                <AnimatePresence
+                  initial={false}
+                  mode={isNarrow ? "wait" : "sync"}
+                >
+                  {slots.map(({ review: item, offset }) => {
+                    const active = offset === 0;
+                    const peek = offset * PEEK;
 
-                  return (
-                    <motion.div
-                      key={item.id}
-                      className={`absolute left-1/2 top-[48%] w-[min(calc(100%-4.75rem),20.5rem)] sm:w-[23rem] md:w-[25.5rem] ${
-                        active
-                          ? "cursor-grab active:cursor-grabbing"
-                          : "cursor-pointer"
-                      }`}
-                      style={{ zIndex: active ? 3 : 1 }}
-                      initial={{
-                        x: `calc(-50% + ${offset * (PEEK + 16)}%)`,
-                        y: `calc(-50% + ${SIDE_Y + 8}px)`,
-                        scale: active ? activeScale : SIDE_SCALE - 0.04,
-                        opacity: active ? 0.85 : 0.18,
-                      }}
-                      animate={{
-                        x: `calc(-50% + ${peek}%)`,
-                        y: active ? "-50%" : `calc(-50% + ${SIDE_Y}px)`,
-                        scale: active ? activeScale : SIDE_SCALE,
-                        opacity: active ? 1 : SIDE_OPACITY,
-                      }}
-                      exit={{
-                        opacity: 0,
-                        scale: SIDE_SCALE - 0.08,
-                        y: `calc(-50% + ${SIDE_Y + 10}px)`,
-                        transition: { duration: duration * 0.65, ease: EASE },
-                      }}
-                      transition={{ duration, ease: EASE }}
-                      drag={active ? "x" : false}
-                      dragConstraints={{ left: 0, right: 0 }}
-                      dragElastic={0.14}
-                      onDragEnd={active ? onDragEnd : undefined}
-                      onClick={() => {
-                        if (offset === -1) previous();
-                        if (offset === 1) next();
-                      }}
-                      aria-hidden={!active}
-                    >
-                      <ReviewCard review={item} active={active} />
-                    </motion.div>
-                  );
-                })}
-              </AnimatePresence>
+                    return (
+                      <motion.div
+                        key={item.id}
+                        className={
+                          isNarrow
+                            ? `relative mx-auto w-[min(calc(100%-4.75rem),20.5rem)] ${
+                                active
+                                  ? "cursor-grab active:cursor-grabbing"
+                                  : "cursor-pointer"
+                              }`
+                            : `absolute left-1/2 top-1/2 w-[min(calc(100%-4.75rem),20.5rem)] sm:w-[23rem] md:w-[25.5rem] ${
+                                active
+                                  ? "cursor-grab active:cursor-grabbing"
+                                  : "cursor-pointer"
+                              }`
+                        }
+                        style={{ zIndex: active ? 3 : 1 }}
+                        initial={
+                          isNarrow
+                            ? {
+                                opacity: 0,
+                                x: offset === 0 ? 28 : 0,
+                              }
+                            : {
+                                x: `calc(-50% + ${offset * (PEEK + 16)}%)`,
+                                y: `calc(-50% + ${SIDE_Y + 8}px)`,
+                                scale: active ? activeScale : SIDE_SCALE - 0.04,
+                                opacity: active ? 0.85 : 0.18,
+                              }
+                        }
+                        animate={
+                          isNarrow
+                            ? {
+                                opacity: 1,
+                                x: 0,
+                              }
+                            : {
+                                x: `calc(-50% + ${peek}%)`,
+                                y: active
+                                  ? "-50%"
+                                  : `calc(-50% + ${SIDE_Y}px)`,
+                                scale: active ? activeScale : SIDE_SCALE,
+                                opacity: active ? 1 : SIDE_OPACITY,
+                              }
+                        }
+                        exit={
+                          isNarrow
+                            ? {
+                                opacity: 0,
+                                x: -28,
+                                transition: {
+                                  duration: duration * 0.65,
+                                  ease: EASE,
+                                },
+                              }
+                            : {
+                                opacity: 0,
+                                scale: SIDE_SCALE - 0.08,
+                                y: `calc(-50% + ${SIDE_Y + 10}px)`,
+                                transition: {
+                                  duration: duration * 0.65,
+                                  ease: EASE,
+                                },
+                              }
+                        }
+                        transition={{ duration, ease: EASE }}
+                        drag={active ? "x" : false}
+                        dragConstraints={{ left: 0, right: 0 }}
+                        dragElastic={0.14}
+                        onDragEnd={active ? onDragEnd : undefined}
+                        onClick={() => {
+                          if (offset === -1) previous();
+                          if (offset === 1) next();
+                        }}
+                        aria-hidden={!active}
+                      >
+                        <ReviewCard review={item} active={active} />
+                      </motion.div>
+                    );
+                  })}
+                </AnimatePresence>
+              </div>
+
+              <button
+                type="button"
+                onClick={previous}
+                aria-label="Previous review"
+                className="review-nav-btn absolute left-0 top-1/2 z-20 -translate-y-1/2 sm:left-1 lg:-left-2"
+              >
+                <ChevronLeft size={18} strokeWidth={1.5} />
+              </button>
+
+              <button
+                type="button"
+                onClick={next}
+                aria-label="Next review"
+                className="review-nav-btn absolute right-0 top-1/2 z-20 -translate-y-1/2 sm:right-1 lg:-right-2"
+              >
+                <ChevronRight size={18} strokeWidth={1.5} />
+              </button>
             </div>
-
-            <button
-              type="button"
-              onClick={previous}
-              aria-label="Previous review"
-              className="review-nav-btn absolute left-0 top-[48%] z-20 -translate-y-1/2 sm:left-1 lg:-left-2"
-            >
-              <ChevronLeft size={18} strokeWidth={1.5} />
-            </button>
-
-            <button
-              type="button"
-              onClick={next}
-              aria-label="Next review"
-              className="review-nav-btn absolute right-0 top-[48%] z-20 -translate-y-1/2 sm:right-1 lg:-right-2"
-            >
-              <ChevronRight size={18} strokeWidth={1.5} />
-            </button>
 
             <div
               className="mt-6 flex items-center justify-center gap-0.5 sm:mt-10 sm:gap-1"
