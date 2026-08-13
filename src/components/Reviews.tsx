@@ -169,7 +169,7 @@ export function Reviews() {
             id="reviews-heading"
             eyebrow="Kind words"
             title="Real Customer Reviews"
-            description="A few notes from homeowners who trusted the work — and the hands behind it."
+            description="A few notes from people who trusted the work."
             align="center"
           />
         </FadeIn>

@@ -5,22 +5,22 @@ const steps = [
   {
     number: "01",
     title: "Consultation",
-    body: "We talk through the space, the materials, and the pace. Not every project is a fit — and that is intentional.",
+    body: "We talk through the space, the materials, and the timeline. Not every project is a fit, and that’s fine.",
   },
   {
     number: "02",
     title: "Design",
-    body: "Drawings and details are refined until the piece belongs to the room. Proportion and grain are decided with care.",
+    body: "Drawings and details get refined until the piece feels like it belongs in the room. Proportion and grain are decided carefully.",
   },
   {
     number: "03",
     title: "Hand-build",
-    body: "Built alone in the Nampa workshop. Joinery, finish, and fitment are handled by the same hands that designed it.",
+    body: "Built alone in the Nampa shop. The same person who designed it does the joinery, the finish, and the fitment.",
   },
   {
     number: "04",
     title: "Install",
-    body: "Installed with the same attention given at the bench — quiet, precise, and finished before the house notices.",
+    body: "Put in with the same care it was built with — quiet, precise, and done before it calls attention to itself.",
   },
 ];
 
@@ -37,7 +37,7 @@ export function Process() {
             id="process-heading"
             eyebrow="How it works"
             title="The Process"
-            description="A short path from conversation to install — kept personal because the capacity is intentionally small."
+            description="A short path from conversation to install. Kept small on purpose."
           />
         </FadeIn>
 

@@ -85,7 +85,7 @@ export function Contact() {
             id="contact-heading"
             eyebrow="Inquiries"
             title="Begin a conversation"
-            description="I accept a very limited number of projects each year. Tell me about your project."
+            description="I only take on a few projects each year. Tell me about yours."
           />
           <p className="type-prose mt-5 text-sm text-charcoal/60 sm:mt-6">
             Based in Nampa, Idaho

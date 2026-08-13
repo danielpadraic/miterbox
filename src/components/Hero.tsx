@@ -53,8 +53,8 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
           className="type-prose mt-5 max-w-xl text-[0.95rem] text-charcoal/65 sm:mt-6 sm:text-lg"
         >
-          Since 1994 at the bench. One craftsman. One or two projects a
-          month — designed and built by hand in Nampa, Idaho.
+          At the bench since 1994. One craftsman. One or two projects a
+          month, built by hand in Nampa.
         </motion.p>
 
         <motion.div

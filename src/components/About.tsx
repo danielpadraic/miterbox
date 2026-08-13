@@ -32,22 +32,23 @@ export function About() {
 
           <div className="type-prose mt-5 space-y-4 text-[0.95rem] text-charcoal/70 sm:mt-6 sm:space-y-5 sm:text-lg">
             <p>
-              MITERBOX began in 1994. For more than three decades, the work has
-              been the same: careful joinery, honest materials, and cabinetry
-              built to outlast trends. Those years were spent crafting pieces
-              for multimillion-dollar homes in and around Austin, Texas — rooms
-              where the details had to be invisible until you looked closely.
+              MITERBOX started in 1994. For more than thirty years the work has
+              stayed the same — careful joinery, honest materials, pieces meant
+              to last longer than the trends.
             </p>
             <p>
-              The shop is in Nampa now, closer to family. The approach has not
-              changed. Every project is designed and built by the owner, from
-              first sketch to final install. No shortcuts. Only one or two
-              commissions are taken each month.
+              Those years were spent on high-end homes around Austin, where the
+              details had to disappear until you looked for them.
             </p>
             <p>
-              The work is for custom homebuilders and homeowners in the Treasure
-              Valley who want something made specifically for their house — and
-              who understand that that kind of care takes time.
+              The shop is in Nampa now, closer to family. The way of working
+              hasn’t changed. Every project is still designed and built by the
+              owner, from the first sketch to the final install. No crew. No
+              shortcuts. Only one or two commissions a month.
+            </p>
+            <p>
+              The work is for people in the Treasure Valley who want something
+              made specifically for their house and are willing to wait for it.
             </p>
           </div>
         </FadeIn>
